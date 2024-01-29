@@ -1,4 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using JoesFunny.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<JoesFunnyContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("JoesFunnyContext") ?? throw new InvalidOperationException("Connection string 'JoesFunnyContext' not found.")));
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

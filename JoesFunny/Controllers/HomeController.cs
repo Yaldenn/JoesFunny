@@ -18,7 +18,7 @@ namespace JoesFunny.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Quiz()
         {
             return View();
         }
