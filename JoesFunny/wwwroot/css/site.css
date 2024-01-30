@@ -19,10 +19,14 @@ html {
 
 body {
     margin-bottom: 60px;
-    background-color: #404040;
+    background-color: #E5E0FA;
 }
 
-header, footer {
+footer {
+    background-color: #5825DF
+}
+
+header {
     background-color: #5825DF
 }
 
