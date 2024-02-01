@@ -20,22 +20,38 @@ namespace JoesFunny.Controllers
         }
 
         // GET: PersonalInformations
-        public async Task<IActionResult> Index(string searchString)
+        // GET: Movies
+        public async Task<IActionResult> Index(string address, string searchString)
         {
             if (_context.PersonalInformation == null)
             {
                 return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
             }
 
-            var informations = from m in _context.PersonalInformation
+            // Use LINQ to get list of genres.
+            IQueryable<string> addressQuery = from m in _context.PersonalInformation
+                                            orderby m.address
+                                            select m.address;
+            var addresses = from m in _context.PersonalInformation
                          select m;
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
-                informations = informations.Where(s => s.Name!.Contains(searchString));
+                addresses = addresses.Where(s => s.Name!.Contains(searchString));
             }
 
-            return View(await informations.ToListAsync());
+            if (!string.IsNullOrEmpty(address))
+            {
+                addresses = addresses.Where(x => x.address == address);
+            }
+
+            var PersonalAddressVM = new PersonalAddressViewModel
+            {
+                Addresses = new SelectList(await addresses.Distinct().ToListAsync()),
+                Address = await address.ToListAsync()
+            };
+
+            return View(PersonalAddressVM);
         }
 
         // GET: PersonalInformations/Details/5
