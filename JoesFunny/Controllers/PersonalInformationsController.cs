@@ -20,11 +20,22 @@ namespace JoesFunny.Controllers
         }
 
         // GET: PersonalInformations
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.PersonalInformation != null ? 
-                          View(await _context.PersonalInformation.ToListAsync()) :
-                          Problem("Entity set 'JoesFunnyContext.PersonalInformation'  is null.");
+            if (_context.PersonalInformation == null)
+            {
+                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+            }
+
+            var informations = from m in _context.PersonalInformation
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                informations = informations.Where(s => s.Name!.Contains(searchString));
+            }
+
+            return View(await informations.ToListAsync());
         }
 
         // GET: PersonalInformations/Details/5
