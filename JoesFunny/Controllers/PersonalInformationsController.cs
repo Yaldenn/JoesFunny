@@ -30,8 +30,8 @@ namespace JoesFunny.Controllers
 
             // Use LINQ to get list of genres.
             IQueryable<string> addressQuery = from m in _context.PersonalInformation
-                                            orderby m.address
-                                            select m.address;
+                                            orderby m.Address
+                                            select m.Address;
             var addresses = from m in _context.PersonalInformation
                          select m;
 
@@ -42,13 +42,13 @@ namespace JoesFunny.Controllers
 
             if (!string.IsNullOrEmpty(address))
             {
-                addresses = addresses.Where(x => x.address == address);
+                addresses = addresses.Where(x => x.Address == address);
             }
 
             var PersonalAddressVM = new PersonalAddressViewModel
             {
                 Addresses = new SelectList(await addresses.Distinct().ToListAsync()),
-                Address = await address.ToListAsync()
+                Information = await addresses.ToListAsync()
             };
 
             return View(PersonalAddressVM);

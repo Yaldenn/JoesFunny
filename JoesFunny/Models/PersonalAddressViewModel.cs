@@ -8,6 +8,6 @@ public class PersonalAddressViewModel
 {
     public List<PersonalInformation>? Information { get; set; }
     public SelectList? Addresses { get; set; }
-    public string? Address { get; set; }
+    public string? CurrentAddress { get; set; }
     public string? SearchString { get; set; }
 }

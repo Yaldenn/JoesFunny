@@ -12,5 +12,5 @@ public class PersonalInformation
     public DateTime DateOfBirth { get; set; }
     [Display(Name = "Social security number")]
     public string SocialSecurityNumber { get; set; }
-    public string address { get; set; }
+    public string? Address { get; set; }
 }
