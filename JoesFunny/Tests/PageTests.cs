@@ -1,5 +1,4 @@
-﻿using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using NUnit.Framework;
 using OpenQA.Selenium.Edge;
 
@@ -13,13 +12,18 @@ namespace JoesFunny.Tests
 
             driver.Navigate().GoToUrl("http://localhost:5167"); 
         }
+
+        [TearDown]
+        public void tearDown()
+        {
+            driver.Dispose();
+        }
         [Test]
         public void TestPage()
         {
-            var nameFilter = driver.FindElement(By.XPath("/ html / body / div / main / form / p / input[1]"));
-            nameFilter.Click();
-            nameFilter.SendKeys("Lebron James");
-            Console.WriteLine(nameFilter.Text);
+            PagePageObject PO = new PagePageObject();
+            PO.EnterFilterText(driver);
+            PO.ClickFilter(driver);
             Assert.That(true);
         }
     }
